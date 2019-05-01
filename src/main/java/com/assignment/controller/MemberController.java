@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.models.Member;
@@ -38,27 +37,29 @@ public class MemberController {
 	  return "about";
 	  }
 	  
-	  @GetMapping(value = "members", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @GetMapping(value = "members",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  public List<Member> getAllMembers(){
 	  return service.getAllMembers();
 	  }
 	  
-	  @GetMapping(value = "members/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	  @ResponseBody public Member getMemberById(@PathVariable Long id){
+	  @GetMapping(value = "members/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  public Member getMemberById(@PathVariable Long id){
 	  return service.getMemberById(id);
 	  }
 	  
-	  @PostMapping(value = "members", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @PostMapping(value = "members", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+			  produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  public Member addNewMember(@Valid @RequestBody Member member){
 	  return service.addNewMember(member);
 	  }
 	  
-	  @PutMapping("/members/update/{id}")
+	  @PutMapping(value = "/members/update/{id}",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+			  produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  Member updateExistingMember(@RequestBody Member member, @PathVariable Long id) {
 	    return service.updateMemberById(member, id);
 	  }
 	  
-	  @DeleteMapping("/members/delete/{id}")
+	  @DeleteMapping(value = "/members/delete/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  void deleteMember(@PathVariable Long id) {
 	    service.deleteMemberById(id);
 	  }

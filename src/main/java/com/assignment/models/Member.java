@@ -8,11 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-@SuppressWarnings("serial")
+import org.springframework.validation.annotation.Validated;
+
+
 @Entity
+@Validated
 public class Member implements Serializable {
  
-    private @Id @GeneratedValue Long id;
+	private static final long serialVersionUID = 6288697488339940555L;
+
+	private @Id @GeneratedValue Long id;
     
     @NotBlank(message = "Please provide First name")
     private String firstName;
