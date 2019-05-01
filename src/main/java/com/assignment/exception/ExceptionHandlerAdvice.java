@@ -1,15 +1,20 @@
 package com.assignment.exception;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException.Forbidden;
+import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -17,7 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.assignment.constants.MessageConstants;
 import com.assignment.models.ExceptionDetails;
 
-@ControllerAdvice
+@RestControllerAdvice
 class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(MemberNotFoundException.class)
@@ -26,11 +31,16 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.NOT_FOUND);
 	}
 		
-	@ResponseStatus(HttpStatus.FORBIDDEN)
+	@ExceptionHandler(Unauthorized.class)
 	public ResponseEntity<ExceptionDetails> handleUnAuthorised(Forbidden ex, WebRequest request) {
-		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 403, MessageConstants.LINK_TO_DOCS, request.getContextPath());
-		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.FORBIDDEN);
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 401, MessageConstants.LINK_TO_DOCS, request.getContextPath());
+		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.UNAUTHORIZED);
 	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+    public void constraintViolationException(HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
+    }
 
 	@Override
 	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,

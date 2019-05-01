@@ -1,10 +1,13 @@
 package com.assignment.models;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class ExceptionDetails {
 	
+	private LocalDateTime timeStamp;
     private int errorCode;
     private String errorMessage;
     private String docs;
@@ -18,6 +21,7 @@ public class ExceptionDetails {
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 		this.docs = docs;
+		this.timeStamp= LocalDateTime.now();
 	}
 	public int getErrorCode() {
 		return errorCode;
@@ -42,6 +46,12 @@ public class ExceptionDetails {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public LocalDateTime getTimeStamp() {
+		return timeStamp;
+	}
+	public void setTimeStamp(LocalDateTime timeStamp) {
+		this.timeStamp = timeStamp;
 	}
     
     
