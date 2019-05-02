@@ -26,7 +26,7 @@ import com.assignment.service.MemberServiceImpl;
  *
  */
 @RestController
-@RequestMapping("member-api/v1/")
+@RequestMapping("member-api/v1/members")
 public class MemberController {
 	
 	  @Autowired
@@ -37,29 +37,29 @@ public class MemberController {
 	  return "about";
 	  }
 	  
-	  @GetMapping(value = "members",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  public List<Member> getAllMembers(){
 	  return service.getAllMembers();
 	  }
 	  
-	  @GetMapping(value = "members/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @GetMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  public Member getMemberById(@PathVariable Long id){
 	  return service.getMemberById(id);
 	  }
 	  
-	  @PostMapping(value = "members", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+	  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			  produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  public Member addNewMember(@Valid @RequestBody Member member){
 	  return service.addNewMember(member);
 	  }
 	  
-	  @PutMapping(value = "/members/update/{id}",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+	  @PutMapping(value = "/update/{id}",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			  produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  Member updateExistingMember(@RequestBody Member member, @PathVariable Long id) {
 	    return service.updateMemberById(member, id);
 	  }
 	  
-	  @DeleteMapping(value = "/members/delete/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @DeleteMapping(value = "/delete/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	  void deleteMember(@PathVariable Long id) {
 	    service.deleteMemberById(id);
 	  }
