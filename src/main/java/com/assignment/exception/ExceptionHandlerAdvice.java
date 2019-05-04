@@ -28,27 +28,27 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(MemberNotFoundException.class)
 	public ResponseEntity<ExceptionDetails> handleMemberNotFound(MemberNotFoundException ex, WebRequest request) {
-		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 404, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
 		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.NOT_FOUND);
 	}
 	
 	@Override
 	public ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 415, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
 		return response(ex, headers, request, HttpStatus.UNSUPPORTED_MEDIA_TYPE, exception);
 	}
 
 	@Override
 	public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 404, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.NOT_FOUND.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
 		return response(ex, headers, request, HttpStatus.NOT_FOUND, exception);
 	}
 		
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<ExceptionDetails> handleUnAuthorised(AccessDeniedException ex, WebRequest request) {
-		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 401, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.UNAUTHORIZED.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
 		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.UNAUTHORIZED);
 	}
 	
@@ -63,7 +63,7 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 			HttpStatus status, WebRequest request) {
 		String errorMessage = ex.getBindingResult().getFieldErrors().stream()
 				.map(DefaultMessageSourceResolvable::getDefaultMessage).findFirst().orElse(ex.getMessage());
-		ExceptionDetails exception = new ExceptionDetails(errorMessage, 400, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		ExceptionDetails exception = new ExceptionDetails(errorMessage, HttpStatus.BAD_REQUEST.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
 		return response(ex, headers, request, HttpStatus.BAD_REQUEST, exception);
 	}
 
@@ -71,7 +71,7 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ExceptionDetails> handleAllExceptions(Exception ex, WebRequest request) {
-		ExceptionDetails error = new ExceptionDetails("Server Error", 500, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		ExceptionDetails error = new ExceptionDetails("Server Error", HttpStatus.INTERNAL_SERVER_ERROR.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
 		return new ResponseEntity<ExceptionDetails>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
