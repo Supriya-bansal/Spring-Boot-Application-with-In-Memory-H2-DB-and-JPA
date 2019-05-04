@@ -35,13 +35,15 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 	@Override
 	public ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		return response(ex, headers, request, HttpStatus.UNSUPPORTED_MEDIA_TYPE, MessageConstants.MEDIA_TYPE_NOT_SUPPORTED_EXCEPTION);
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 415, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		return response(ex, headers, request, HttpStatus.UNSUPPORTED_MEDIA_TYPE, exception);
 	}
 
 	@Override
 	public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		return response(ex, headers, request, HttpStatus.NOT_FOUND, MessageConstants.NO_METHOD_HANDLER_EXCEPTION);
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), 404, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		return response(ex, headers, request, HttpStatus.NOT_FOUND, exception);
 	}
 		
 	@ExceptionHandler(AccessDeniedException.class)
@@ -61,7 +63,8 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 			HttpStatus status, WebRequest request) {
 		String errorMessage = ex.getBindingResult().getFieldErrors().stream()
 				.map(DefaultMessageSourceResolvable::getDefaultMessage).findFirst().orElse(ex.getMessage());
-		return response(ex, headers, request, HttpStatus.BAD_REQUEST, errorMessage);
+		ExceptionDetails exception = new ExceptionDetails(errorMessage, 400, MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		return response(ex, headers, request, HttpStatus.BAD_REQUEST, exception);
 	}
 
 	
@@ -73,8 +76,8 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 	}
 
 	private ResponseEntity<Object> response(Exception ex, HttpHeaders headers, WebRequest request, HttpStatus status,
-			String message) {
-		return handleExceptionInternal(ex, message, headers, status, request);
+			ExceptionDetails exceptionDetails) {
+		return handleExceptionInternal(ex, exceptionDetails, headers, status, request);
 	}
 
 }

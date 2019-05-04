@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,34 +31,32 @@ public class MemberController {
 	  @Autowired
 	  private MemberServiceImpl service;
 
-	  @GetMapping(value = "about")
+	  @GetMapping("about")
 	  public String getInfo(){
 	  return "about";
 	  }
 	  
-	  @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @GetMapping
 	  public List<Member> getAllMembers(){
 	  return service.getAllMembers();
 	  }
 	  
-	  @GetMapping(value = "/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @GetMapping("{id}")
 	  public Member getMemberById(@PathVariable Long id){
 	  return service.getMemberById(id);
 	  }
 	  
-	  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-			  produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @PostMapping
 	  public Member addNewMember(@Valid @RequestBody Member member){
 	  return service.addNewMember(member);
 	  }
 	  
-	  @PutMapping(value = "/update/{id}",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-			  produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @PutMapping("/update/{id}")
 	  Member updateExistingMember(@RequestBody Member member, @PathVariable Long id) {
 	    return service.updateMemberById(member, id);
 	  }
 	  
-	  @DeleteMapping(value = "/delete/{id}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	  @DeleteMapping("/delete/{id}")
 	  void deleteMember(@PathVariable Long id) {
 	    service.deleteMemberById(id);
 	  }
