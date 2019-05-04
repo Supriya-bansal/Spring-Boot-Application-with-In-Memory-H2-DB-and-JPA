@@ -31,11 +31,6 @@ public class MemberController {
 	  @Autowired
 	  private MemberServiceImpl service;
 
-	  @GetMapping("about")
-	  public String getInfo(){
-	  return "This is yet to come";
-	  }
-	  
 	  @GetMapping
 	  public List<Member> getAllMembers(){
 	  return service.getAllMembers();
@@ -52,12 +47,12 @@ public class MemberController {
 	  }
 	  
 	  @PutMapping("/update/{id}")
-	  Member updateExistingMember(@RequestBody Member member, @PathVariable Long id) {
+	  public Member updateExistingMember(@RequestBody Member member, @PathVariable Long id) {
 	    return service.updateMemberById(member, id);
 	  }
 	  
 	  @DeleteMapping("/delete/{id}")
-	  void deleteMember(@PathVariable Long id) {
+	  public void deleteMember(@PathVariable Long id) {
 	    service.deleteMemberById(id);
 	  }
 

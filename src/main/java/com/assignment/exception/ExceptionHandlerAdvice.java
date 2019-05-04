@@ -29,7 +29,7 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(MemberNotFoundException.class)
 	public ResponseEntity<ExceptionDetails> handleMemberNotFound(MemberNotFoundException ex, WebRequest request) {
 		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.NOT_FOUND.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
-		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<ExceptionDetails> handleUnAuthorised(AccessDeniedException ex, WebRequest request) {
 		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.UNAUTHORIZED.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
-		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.UNAUTHORIZED);
+		return new ResponseEntity<>(exception, HttpStatus.UNAUTHORIZED);
 	}
 	
 	@ExceptionHandler(ConstraintViolationException.class)
@@ -72,7 +72,7 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ExceptionDetails> handleAllExceptions(Exception ex, WebRequest request) {
 		ExceptionDetails error = new ExceptionDetails("Server Error", HttpStatus.INTERNAL_SERVER_ERROR.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
-		return new ResponseEntity<ExceptionDetails>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	private ResponseEntity<Object> response(Exception ex, HttpHeaders headers, WebRequest request, HttpStatus status,

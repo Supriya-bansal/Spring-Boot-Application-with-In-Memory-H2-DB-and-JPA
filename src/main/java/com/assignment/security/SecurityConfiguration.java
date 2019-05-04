@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration	
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	/* This is for Authentication :: Configuring Access credentials for different roles*/
+	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
 		auth.inMemoryAuthentication()
@@ -17,6 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	/* This is for Authorization :: Define which role has what access*/
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeRequests()
 		.antMatchers("/members/**").hasRole(Roles.TECHLEAD.name())
