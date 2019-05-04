@@ -3,14 +3,14 @@ package com.assignment.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.assignment.constants.MessageConstants;
 import com.assignment.exception.MemberNotFoundException;
 import com.assignment.models.Member;
 import com.assignment.repository.MemberRepository;
 
-@Service
+@Component
 public class MemberServiceImpl implements MemberServiceInterface{
 	
 	@Autowired
@@ -30,7 +30,6 @@ public class MemberServiceImpl implements MemberServiceInterface{
 	@Override
 	public Member addNewMember(Member member) {
 		return repository.save(member);
-				
 	}
 
 	@Override
