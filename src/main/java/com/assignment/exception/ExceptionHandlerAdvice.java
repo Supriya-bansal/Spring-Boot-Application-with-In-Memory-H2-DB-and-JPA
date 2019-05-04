@@ -28,7 +28,7 @@ class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(MemberNotFoundException.class)
 	public ResponseEntity<ExceptionDetails> handleMemberNotFound(MemberNotFoundException ex, WebRequest request) {
-		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
+		ExceptionDetails exception = new ExceptionDetails(ex.getMessage(), HttpStatus.NOT_FOUND.value(), MessageConstants.LINK_TO_DOCS, request.getContextPath(),LocalTime.now());
 		return new ResponseEntity<ExceptionDetails>(exception, HttpStatus.NOT_FOUND);
 	}
 	

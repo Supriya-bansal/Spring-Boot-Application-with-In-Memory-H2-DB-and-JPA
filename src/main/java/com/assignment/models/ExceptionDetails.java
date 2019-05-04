@@ -11,7 +11,7 @@ public class ExceptionDetails {
     private int errorCode;
     private String errorMessage;
     private String docs;
-    private String url;
+    private String baseUrl;
     
 	public ExceptionDetails() {
 		
@@ -21,7 +21,7 @@ public class ExceptionDetails {
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
 		this.docs = docs;
-		this.url=url;
+		this.baseUrl=url;
 		this.timeStamp= timeStamp;
 	}
 	public int getErrorCode() {
@@ -42,11 +42,12 @@ public class ExceptionDetails {
 	public void setDocs(String docs) {
 		this.docs = docs;
 	}
-	public String getUrl() {
-		return url;
+	
+	public String getBaseUrl() {
+		return baseUrl;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
 	public LocalTime getTimeStamp() {
 		return timeStamp;

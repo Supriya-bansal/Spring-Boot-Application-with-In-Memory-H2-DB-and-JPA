@@ -33,7 +33,7 @@ public class MemberController {
 
 	  @GetMapping("about")
 	  public String getInfo(){
-	  return "about";
+	  return "This is yet to come";
 	  }
 	  
 	  @GetMapping
