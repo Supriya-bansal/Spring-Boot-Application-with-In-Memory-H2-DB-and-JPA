@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.constants.MessageConstants;
 
@@ -18,7 +18,7 @@ import com.assignment.constants.MessageConstants;
  * This will be extended to serve information about any additional apis that maybe added later.
  */
 
-@Controller
+@RestController
 public class AboutController {
 
 	@GetMapping(value= "/")
