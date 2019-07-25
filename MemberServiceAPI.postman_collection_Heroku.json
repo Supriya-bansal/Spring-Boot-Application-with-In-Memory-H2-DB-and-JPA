@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "beb65033-a93b-4045-ac6d-290fb1dcfca6",
+		"name": "MemberServiceAPI",
+		"description": "This service is used for managing Member portal. Operations allowed are :\n1. Fetching all the members from In memory database.\n2. Fetching one member by providing the id.\n3. Adding a new member to the portal.\n4. Updating the data for existing member.\n5. Deleting a member from the portal by providing an id.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:9001/member-api/v1/members",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "ADMIN",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "ADMIN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"rajesh\",\n    \"lastName\": \"singla\",\n    \"postalCode\": \"148101\",\n    \"dateOfBirth\": \"08/12/1992\"\n}"
+				},
+				"url": {
+					"raw": "https://member-service-api.herokuapp.com/member-api/v1/members",
+					"protocol": "https",
+					"host": [
+						"member-service-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"member-api",
+						"v1",
+						"members"
+					]
+				},
+				"description": "Add a new member to the portal.\nendpoint : POST member-api/v1/members\nRequest format\n\n{\n    \"firstName\": \"Supriya\",\n    \"lastName\": \"Bansal\",\n    \"postalCode\": \"148101\",\n    \"dateOfBirth\":\"07/08/1992\"\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9001/member-api/v1/members",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://member-service-api.herokuapp.com/member-api/v1/members",
+					"protocol": "https",
+					"host": [
+						"member-service-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"member-api",
+						"v1",
+						"members"
+					]
+				},
+				"description": "Fetch all the members registered on the portal\n\nendpoint : GET member-api/v1/members"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9001/member-api/v1/members/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://member-service-api.herokuapp.com/member-api/v1/members/1",
+					"protocol": "https",
+					"host": [
+						"member-service-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"member-api",
+						"v1",
+						"members",
+						"1"
+					]
+				},
+				"description": "Fetch a member by specifying its id.\n\nendpoint : GET member-api/v1/members/{id} where id is a unique generated value while adding member to the portal."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9001/member-api/v1/members/update/{id}",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "ADMIN",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "ADMIN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"rohit\",\n    \"lastName\": \"shinde\",\n    \"postalCode\": \"148101\",\n    \"dateOfBirth\": \"08/07/1992\"\n}"
+				},
+				"url": {
+					"raw": "https://member-service-api.herokuapp.com/member-api/v1/members/update/3",
+					"protocol": "https",
+					"host": [
+						"member-service-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"member-api",
+						"v1",
+						"members",
+						"update",
+						"3"
+					]
+				},
+				"description": "This request is to update details of an existing member.\n\nendpoint : PUT /member-api/v1/members/update/{id}\nwhere id is a unique generated value while adding member to the portal."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9001/member-api/v1/members/delete/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://member-service-api.herokuapp.com/member-api/v1/members/delete/1",
+					"protocol": "https",
+					"host": [
+						"member-service-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"member-api",
+						"v1",
+						"members",
+						"delete",
+						"1"
+					]
+				},
+				"description": "This request is to delete details of an existing member.\n\nendpoint : DELETE /member-api/v1/members/delete/{id}\nwhere id is a unique generated value while adding member to the portal."
+			},
+			"response": []
+		}
+	]
+}
