@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.constants.MessageConstants;
@@ -27,7 +26,7 @@ public class AboutController {
 	}
 	
 	@GetMapping("member-api/v1/members/about")
-	  public @ResponseBody String getInfo(){
+	  public String getInfo(){
 	  return "This is yet to come. For more details, Please visit Documentation : https://github.com/Supriya-bansal/Spring-Boot-Application-with-In-Memory-H2-DB-and-JPA";
 	  }
 }

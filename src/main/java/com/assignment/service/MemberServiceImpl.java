@@ -43,7 +43,6 @@ public class MemberServiceImpl implements MemberServiceInterface{
 	        return repository.save(existing);
 	      })
 	      .orElseGet(() -> {
-	        member.setId(id);
 	        return repository.save(member);
 	      });
 	}

@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -28,7 +31,8 @@ public class Member implements Serializable {
     @NotBlank(message = "Please provide Postal code")
     private String postalCode;
     
-    @NotBlank(message = "Please provide Date of birth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @NotNull(message = "Please provide Date of birth")
     private LocalDate dateOfBirth;
     
     public Member() {
@@ -42,15 +46,15 @@ public class Member implements Serializable {
         this.dateOfBirth = dateOfbirth;
     }
 
-
+	
 	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	/*
+	 * public void setId(Long id) { this.id = id; }
+	 */
 
 
 	public String getFirstName() {

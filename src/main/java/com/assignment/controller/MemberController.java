@@ -5,9 +5,8 @@ package com.assignment.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +23,7 @@ import com.assignment.service.MemberServiceImpl;
  * @author supu
  *
  */
+
 @RestController
 @RequestMapping("member-api/v1/members")
 public class MemberController {
@@ -41,9 +41,9 @@ public class MemberController {
 	  return service.getMemberById(id);
 	  }
 	  
-	  @PostMapping
-	  public Member addNewMember(@Valid @RequestBody Member member){
-	  return service.addNewMember(member);
+	  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	  public Member addNewMember(@RequestBody Member member){
+		  return service.addNewMember(member);
 	  }
 	  
 	  @PutMapping("/update/{id}")
